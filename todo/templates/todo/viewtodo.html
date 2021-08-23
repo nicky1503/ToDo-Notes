@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'todo/base.html' %}
+    {% block content %}
+    {{ todo.title}}
+    <h2>{{ error }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Save</button>
+    </form>
+    {% if not todo.date_completed%}
+    <form method="POST" action="{% url 'completetodo' todo.id %}">
+        {% csrf_token %}
+        <button type="submit">Complete</button>
+    </form>
+    {% endif %}
+    <form method="POST" action="{% url 'deletetodo' todo.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+
+    {% endblock %}
+</body>
+</html>

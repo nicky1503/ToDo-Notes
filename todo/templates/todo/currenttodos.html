@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% extends 'todo/base.html' %}
+    {% block content %}
+    <ul>
+        {% for todo in todos %}
+
+        <li>
+            <a href="{% url 'viewtodo' todo.id%}">
+            {%if todo.important%} <b> {% endif %}
+            {{todo.title}}
+            {%if todo.important%} </b> {% endif %}
+            {% if todo.memo %} - {{todo.memo}} {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    current
+    <form method="POST" action="{% url 'completedtodos' %}">
+        {% csrf_token %}
+        <button type="submit">Completed</button>
+    </form>
+    {% endblock %}
+</body>
+</html>
